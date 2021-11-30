@@ -19,7 +19,7 @@ stop_time=`date +"%H:%M:%S"`
 
 #新增的错误日志
 #error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {{for (i=6;i<=NF;i++)printf("%s ", $i);print ""}}}'|uniq`
-error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?host"|uniq`
+error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?HTTP"|uniq -uc`
 if [ ! -n "$error" ]; then  
   exit 0 
 fi    
