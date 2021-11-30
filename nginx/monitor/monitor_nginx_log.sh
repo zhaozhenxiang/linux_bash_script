@@ -23,7 +23,7 @@ error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_dat
 if [ ! -n "$error" ]; then  
   exit 0 
 fi    
-echo $error
-#error=`urlencode $error`
+#echo $error
+error=`urlencode $error`
 # echo $error
-#curl -G https://sctapi.ftqq.com/{$sendkey}.send --data-urlencode title=$hostname --data-urlencode desp=$error
+curl -G https://sctapi.ftqq.com/{$sendkey}.send --data-urlencode title=$hostname --data-urlencode desp=$error
