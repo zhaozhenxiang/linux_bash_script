@@ -18,11 +18,12 @@ start_time=`date -d"3 minutes ago" +"%H:%M:%S"`
 stop_time=`date +"%H:%M:%S"`
 
 #新增的错误日志
-error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'`
+#error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {{for (i=6;i<=NF;i++)printf("%s ", $i);print ""}}}'|uniq`
+error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?host"|uniq`
 if [ ! -n "$error" ]; then  
   exit 0 
 fi    
-
-error=`urlencode $hostname $error`
+echo $error
+#error=`urlencode $error`
 # echo $error
-curl -G https://sctapi.ftqq.com/{$sendkey}.send --data-urlencode title=$error --data-urlencode desp=$error
+#curl -G https://sctapi.ftqq.com/{$sendkey}.send --data-urlencode title=$hostname --data-urlencode desp=$error
