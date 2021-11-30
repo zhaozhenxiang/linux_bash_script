@@ -3,6 +3,10 @@
 # $1 为文件路径，/usr/local/openresty/nginx/logs/test.error.log
 # $2 为https://sct.ftqq.com/的SENDKEY
 
+if [ $# != 2 ] ; then
+echo 'param count must be 2'
+exit 1;
+fi
 #日志文件路径
 logfile=$1
 sendkey=$2
