@@ -33,6 +33,10 @@ stop_time=`date +"%H:%M:%S"`
 
 #新增的错误日志
 error=`tac $logfile/$filename | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'`
+if [ ! -n "$error" ]; then  
+  exit 0 
+fi    
+
 error=`urlencode $error`
 
 # echo $error
