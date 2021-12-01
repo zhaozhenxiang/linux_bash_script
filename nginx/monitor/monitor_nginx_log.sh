@@ -15,15 +15,16 @@ hostname=`hostname`
 #当天日期,年月日
 cur_date=`date +"%Y/%m/%d"`
 
-#开始时间（3分钟前）,时分秒
-start_time=`date -d"3 minutes ago" +"%H:%M:%S"`
+#开始时间（1分钟前）,时分秒
+start_time=`date -d"1 minutes ago" +"%H:%M:%S"`
 
 #结束时间,时分秒
 stop_time=`date +"%H:%M:%S"`
 
 #新增的错误日志
 #error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {{for (i=6;i<=NF;i++)printf("%s ", $i);print ""}}}'|uniq`
-error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?HTTP"|uniq -uc`
+#error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?HTTP"|uniq -uc`
+error=`tail -n100 $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {for (i=8;i<=NF;i++)printf("%s ", $i);print ""}}'|grep -Eo "request.+?HTTP"|uniq -uc`
 if [ ! -n "$error" ]; then  
   exit 0 
 fi    
