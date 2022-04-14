@@ -34,4 +34,4 @@ fi
 error=`urlencode $error`
 # echo $error
 # curl -G https://sctapi.ftqq.com/{$sendkey}.send --data-urlencode title=$hostname --data-urlencode desp=$error
-curl -G http://tui.doit.am/dmp/html/tui_send_interface.php --data-urlencode sckey=$sendkey --data-urlencode title=$hostname --data-urlencode content=$error
+curl -G http://tui.doit.am/dmp/html/tui_send_interface.php --data-urlencode sckey=$sendkey --data-urlencode title=$hostname --data-urlencode content=$error --data-urlencode url="http://api-cn.doiting.com/echo.html?echo="$error
