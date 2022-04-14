@@ -16,7 +16,7 @@ hostname=`hostname`
 #开始时间（1分钟前）,时分秒
 start_time=`date -d"1 minutes ago" +"%d-%b-%Y %H:%M"`
 echo $start_time
-start_time="14-Apr-2022 12:27"
+# start_time="14-Apr-2022 12:27"
 error=`tail -n1000 $logfile|grep "$start_time" -A4|grep -v public/index.php`
 echo $error
 
