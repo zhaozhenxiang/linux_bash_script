@@ -26,7 +26,7 @@ stop_time=`date +"%H:%M:%S"`
 #error=`tac $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "request.+?HTTP"|uniq -uc`
 #error=`tail -n10000 $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{t=$2;t1=$1; if(dt==t1 && t>=st && t<=et) {print $0}}'|grep -Eo "error:"`
 #error=`tail -n10000 $logfile | awk -v st="$start_time" -v et="$stop_time" -v dt="$cur_date" '{print $2}'`
-error=`tail -n1000 $logfile |grep -E "production.ERROR:" -A2`
+error=`tail -n100 $logfile |grep -E "production.ERROR:" -A0`
 if [ ! -n "$error" ]; then  
   exit 0 
 fi    
